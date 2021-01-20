@@ -45,10 +45,10 @@ LastD = 1.0
 LastG = 1.0
 
 def TrainD():
-    return LastG > ((1.0+border_factor)  * LastD)
+    return LastD < ((1.0+border_factor)  * LastG)
 
 def TrainG():
-    return LastD > ((1.0 + border_factor) * LastG)
+    return LastG < ((1.0 + border_factor) * LastD)
 
 
 
