@@ -67,7 +67,7 @@ for i,(deck, real) in enumerate(loader):
     if i % 20 ==0:
         torch.save(G.state_dict(),"output/G_{}".format(i))
 
-    if i >= 500:
+    if i >= 10000:
         break
 
 np.save("output/lossD.npy",lossrecD)
