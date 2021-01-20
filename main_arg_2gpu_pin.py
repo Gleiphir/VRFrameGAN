@@ -38,27 +38,52 @@ fake_label = 0.0
 lossrecD = []
 lossrecG = []
 
+
+border_factor = 0.2
+
+LastD = 1.0
+LastG = 1.0
+
+def TrainD():
+    return LastG > ((1.0+border_factor)  * LastD)
+
+def TrainG():
+    return LastD > ((1.0 + border_factor) * LastG)
+
+
+
+
 def train(deckX,realY):
+    global LastD,LastG
     deckX = deckX.cuda(device=cudaN(GPU_G))
     realY = realY.cuda(device=cudaN(GPU_D))
+
+
     # Update D network: maximize log(D(x)) + log(1 - D(G(z)))
     optD.zero_grad()
     lossD = criterion(D(realY), torch.ones(BATCH_SIZE, 1).cuda(device=cudaN(GPU_D))) \
             + criterion(D(G(deckX).to(device=cudaN(GPU_D))),torch.zeros((BATCH_SIZE, 1)).cuda(device=cudaN(GPU_D)))
 
     # 0.0-1.0 higher = more real
-    lossD.backward()
-    optD.step()
-    lossrecD.append(lossD.detach().item())
-    print("Loss D: ", lossD.detach().item())
+    if TrainD():
+        lossD.backward()
+        optD.step()
+    lossDVal = lossD.detach().item()
+    lossrecD.append(lossDVal)
+    print("Loss D: ", lossDVal,TrainD())
 
-    ## (2) Update G network: maximize log(D(G(z)))
+    ## Update G network: maximize log(D(G(z)))
     optG.zero_grad()
     lossG = criterion(D(G(deckX).to(device=cudaN(GPU_D))), torch.ones(BATCH_SIZE, 1).cuda(device=cudaN(GPU_D)))  # G wants D to predict 1.0
-    lossG.backward()
-    optG.step()
-    lossrecG.append(lossG.detach().item())
-    print("Loss G: ", lossG.detach().item())
+    if TrainG():
+        lossG.backward()
+        optG.step()
+    lossGVal = lossG.detach().item()
+    lossrecG.append(lossGVal)
+    print("Loss G: ", lossGVal,TrainG())
+
+    LastD = lossDVal
+    LastG = lossGVal
 
 
 for i,(deck, real) in enumerate(loader):
