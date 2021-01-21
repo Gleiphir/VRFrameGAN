@@ -11,7 +11,7 @@ non0mean = lambda ary: np.sum(ary) / np.count_nonzero(ary)
 
 rpic = lambda path: np.array(Image.open(path)).astype(np.int16)
 
-rpicNorm = lambda path: np.array(Image.open(path),dtype=np.float) / 255.0 - 0.5  #[-0.5,+0.5]
+rpicNorm = lambda path: np.array(Image.open(path),dtype=np.float) / 255.0   #[0.0 , 1.0]
 
 # (row (height), column (width), color (channel))
 

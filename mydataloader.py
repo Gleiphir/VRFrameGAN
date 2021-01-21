@@ -16,7 +16,7 @@ import tools.imgMomentum as M
 #toTorch = lambda im : im.transpose((2, 0, 1))
 
 ImProcessDeck = trs.Compose([
-    trs.RandomCrop(128,padding=4),
+    trs.RandomCrop((96,108)),
     #trs.Normalize((0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5) )
 ])
 """
