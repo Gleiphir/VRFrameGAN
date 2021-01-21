@@ -20,12 +20,12 @@ def toNpImg(t:torch.Tensor):
 
 
 G = model.Generator().cuda()
-G.load_state_dict(torch.load("nets/crop-pin-Jan20/G_500",map_location=torch.device('cuda:0')))
+G.load_state_dict(torch.load("nets/crop-Jan21/G_500",map_location=torch.device('cuda:0')))
 
 import matplotlib.pyplot as plt
 
-lossrecD = np.load("nets/crop-pin-Jan20/lossD.npy")
-lossrecG = np.load("nets/crop-pin-Jan20/lossG.npy")
+lossrecD = np.load("nets/crop-Jan21/lossD.npy")
+lossrecG = np.load("nets/crop-Jan21/lossG.npy")
 
 lossD = running_mean(lossrecD,10)
 lossG = running_mean(lossrecG,10)

@@ -61,7 +61,7 @@ def train(deckX,realY):
     lossrecD.append(lossD.detach().item())
     print("Loss D: ", lossD.detach().item())
 
-    ## (2) Update G network: maximize log(D(G(z)))
+    ## (2) Update G network: maximize log(D(G(z)))a
     optG.zero_grad()
     lossG = criterion(D(G(deckX).to(device=cudaN(GPU_D))), torch.ones(BATCH_SIZE, 1).cuda(device=cudaN(GPU_D)))  # G wants D to predict 1.0
     lossG.backward()

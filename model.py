@@ -22,12 +22,12 @@ class Generator(nn.Module):
         self.model = nn.Sequential(
 
             nn.Conv2d(5, 32, 3, stride=1, padding=(1, 1)),
-            nn.BatchNorm2d(32),
+            #nn.BatchNorm2d(32),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, stride=1, padding=(1, 1)),
             nn.ReLU(),
             nn.Conv2d(32, 64, 3, stride=1, padding=(1, 1)),
-            nn.BatchNorm2d(64),
+            #nn.BatchNorm2d(64),
             nn.ReLU(),
             nn.Conv2d(64, 64, 3, stride=1, padding=(1, 1)),
             nn.ReLU(),
