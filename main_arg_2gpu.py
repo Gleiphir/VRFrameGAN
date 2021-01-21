@@ -6,6 +6,15 @@ from mydataloader import FrameDiffDataset
 import model
 import numpy as np
 
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('epochs', metavar='N', type=int, default=500,
+                    help='Epochs to train')
+
+args = parser.parse_args()
+
+
 
 scale_factor =4
 
@@ -67,7 +76,7 @@ for i,(deck, real) in enumerate(loader):
     if i % 20 ==0:
         torch.save(G.state_dict(),"output/G_{}".format(i))
 
-    if i >= 10000:
+    if i >= args.epochs:
         break
 
 np.save("output/lossD.npy",lossrecD)
