@@ -56,12 +56,12 @@ class Discriminator(nn.Module):
             #nn.Conv2d(64, 64, 3, stride=1, padding=(1, 1)),
             #nn.LeakyReLU(leak),
         )
-        self.fc = nn.Linear(128 * 128 * 4, 1)
+        self.fc = nn.Linear(96 * 108 * 4, 1)
         self.sig = nn.Sigmoid()
 
     def forward(self, x):
         m = x
         m = self.seq(m)
-        return self.sig(self.fc(m.view(-1, 128 * 128 * 4)))
+        return self.sig(self.fc(m.view(-1, 96 * 108 * 4)))
 
 
