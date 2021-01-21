@@ -9,7 +9,7 @@ import numpy as np
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('epochs', metavar='N', type=int, default=500,
+parser.add_argument('epochs', type=int, default=500,
                     help='Epochs to train')
 
 args = parser.parse_args()
