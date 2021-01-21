@@ -15,17 +15,18 @@ def running_mean(array,window_len):
     return np.convolve(array, np.ones(window_len) / window_len, mode='valid')
 
 def toNpImg(t:torch.Tensor):
-    fst,scd = np.split(t.detach().cpu().squeeze().numpy(),2)
-    return fst.transpose(1,2,0) + 0.5 ,scd.transpose(1,2,0) +0.5
+    t = torch.squeeze( t.detach().cpu() )
+    im1,im2 = t[:3, :, :].numpy(), t[3:, :, :].numpy()
+    return im1.transpose([1,2,0]) , im2.transpose([1,2,0])
 
 
 G = model.Generator().cuda()
-G.load_state_dict(torch.load("nets/crop-Jan21-2/G_500",map_location=torch.device('cuda:0')))
+G.load_state_dict(torch.load("nets/crop-Jan21-3-uni/G_500",map_location=torch.device('cuda:0')))
 
 import matplotlib.pyplot as plt
 
-lossrecD = np.load("nets/crop-Jan21-2/lossD.npy")
-lossrecG = np.load("nets/crop-Jan21-2/lossG.npy")
+lossrecD = np.load("nets/crop-Jan21-3-uni/lossD.npy")
+lossrecG = np.load("nets/crop-Jan21-3-uni/lossG.npy")
 
 lossD = running_mean(lossrecD,10)
 lossG = running_mean(lossrecG,10)
