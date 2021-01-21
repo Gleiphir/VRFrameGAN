@@ -22,7 +22,7 @@ def cudaN(ind:int):
     return torch.device(type='cuda', index=ind)
 
 F = FrameDiffDataset(r"myData/210110-demo-split/L")
-loader = DataLoader(F,batch_size=BATCH_SIZE ,shuffle=True)
+loader = DataLoader(F,batch_size=BATCH_SIZE ,shuffle=True,drop_last=True)
 
 criterion = nn.BCELoss()
 

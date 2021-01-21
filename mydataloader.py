@@ -19,12 +19,13 @@ ImProcessDeck = trs.Compose([
     trs.RandomCrop(128,padding=4),
     #trs.Normalize((0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5) )
 ])
-
+"""
 ImProcessFig = trs.Compose([
     trs.RandomCrop(128,padding=4),
 
     #trs.Normalize((0.5, 0.5, 0.5, 0.5, 0.5, 0.5), (0.5, 0.5, 0.5, 0.5, 0.5) )
 ])
+"""
 
 class FrameDiffDataset(Dataset):
     """Frame diff Dataset."""
@@ -56,9 +57,9 @@ class FrameDiffDataset(Dataset):
         mergedX = np.concatenate((im1,diff,noise),axis=0)
 
         stackedY = np.concatenate((im2,im3),axis=0)
-
+        Processed = ImProcessDeck(torch.cat([torch.Tensor(mergedX),torch.Tensor(stackedY)]))
         # Normalized Images.
-        return ImProcessDeck(torch.Tensor(mergedX)), ImProcessFig(torch.Tensor(stackedY))
+        return Processed[:5,:,:] , Processed[5:,:,:]
 
 
 if __name__ == "__main__":
